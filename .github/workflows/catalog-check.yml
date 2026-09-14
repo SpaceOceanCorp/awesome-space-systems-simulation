@@ -1,0 +1,40 @@
+name: Catalog checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint Markdown
+        uses: DavidAnson/markdownlint-cli2-action@v20
+        with:
+          globs: '**/*.md'
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: '--verbose --no-progress --timeout 20 --max-concurrency 4 ''**/*.md'''
+          fail: true
+
+      - name: Check for non-ASCII documentation text
+        shell: bash
+        run: |
+          if grep -RInP '[^\x00-\x7F]' \
+            --include='*.md' \
+            README.md CONTRIBUTING.md LICENSE .gitignore \
+            tools examples taxonomy benchmarks; then
+            echo 'Unexpected non-ASCII text found.'
+            exit 1
+          fi
+
+      - name: Check catalog structure
+        shell: bash
+        run: python scripts/check_catalog.py
