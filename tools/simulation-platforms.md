@@ -55,6 +55,7 @@ This section is reserved for open-source applications and frameworks that can ru
 - **Time advancement:** task-based scheduler with configurable update rates and numerical state integration
 - **SIL/HIL:** synchronization and external integration support; deployment-specific
 - **Validation status:** extensive unit and integrated tests plus documented cross-tool orbit-propagation comparisons
+- **Evidence:** [Basilisk documentation](https://avslab.github.io/basilisk/) and the [official repository test suite](https://github.com/AVSLab/basilisk/tree/master/src/tests)
 - **Maintenance status:** active
 - **Review status:** reviewed
 

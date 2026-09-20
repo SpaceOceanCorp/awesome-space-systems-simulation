@@ -1,0 +1,27 @@
+name: Metadata correction
+description: Report a factual or classification correction for a catalog entry
+title: "Metadata correction: "
+labels:
+  - metadata
+body:
+  - type: input
+    id: project
+    attributes:
+      label: Project name
+      description: Name of the existing catalog entry.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed correction
+      description: State the current value and the proposed value.
+    validations:
+      required: true
+  - type: input
+    id: evidence
+    attributes:
+      label: Evidence URL
+      description: Link to official documentation, repository, or release notes.
+    validations:
+      required: true

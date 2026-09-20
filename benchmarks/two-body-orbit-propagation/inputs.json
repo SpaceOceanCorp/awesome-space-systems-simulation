@@ -1,0 +1,8 @@
+{
+  "mu_m3_s2": 398600441800000.0,
+  "initial_position_m": [7000000.0, 0.0, 0.0],
+  "initial_velocity_m_s": [0.0, 7546.053290107542, 0.0],
+  "duration_s": 600.0,
+  "output_interval_s": 60.0,
+  "reference_step_s": 0.1
+}

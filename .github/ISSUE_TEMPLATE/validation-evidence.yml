@@ -1,0 +1,35 @@
+name: Validation evidence
+description: Add or correct validation, experiment, or flight-heritage evidence
+title: "Validation evidence: "
+labels:
+  - validation
+body:
+  - type: input
+    id: project
+    attributes:
+      label: Project name
+    validations:
+      required: true
+  - type: dropdown
+    id: evidence_level
+    attributes:
+      label: Proposed evidence level
+      options:
+        - V1 - repository tests or examples
+        - V2 - reference benchmark comparison
+        - V3 - experimental or flight-data validation
+        - V4 - operational mission heritage
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Evidence source URL
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: Supported claim
+    validations:
+      required: true

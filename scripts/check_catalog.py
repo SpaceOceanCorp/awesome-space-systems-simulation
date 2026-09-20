@@ -42,6 +42,18 @@ PRIMARY_CATEGORIES = {
 
 REQUIRED_REVIEWED_CATEGORIES = PRIMARY_CATEGORIES - {"restricted-reference", "examples"}
 
+GUIDE_REQUIRED_LINK_PREFIXES = ("../tools/", "../benchmarks/")
+BENCHMARK_REQUIRED_HEADINGS = (
+    "Problem statement",
+    "Reference implementation",
+    "Required outputs",
+    "Error metrics",
+    "Cross-tool results",
+    "Validation status",
+    "Last reviewed",
+    "Status",
+)
+
 
 def entry_blocks(path: Path):
     lines = path.read_text(encoding="utf-8").splitlines()
@@ -56,6 +68,38 @@ def heading_anchor(heading: str) -> str:
     return re.sub(r"[ ]+", "-", normalized.strip())
 
 
+def check_guides_and_benchmarks(errors):
+    guides_root = ROOT / "guides"
+    if not guides_root.is_dir():
+        errors.append("guides/: missing task-guide directory")
+    else:
+        guide_files = sorted(path for path in guides_root.glob("*.md") if path.name != "README.md")
+        if not guide_files:
+            errors.append("guides/: no task-guide pages found")
+        for path in guide_files:
+            text = path.read_text(encoding="utf-8")
+            if not re.search(r"^## ", text, re.MULTILINE):
+                errors.append(f"{path.relative_to(ROOT)}: missing second-level guide headings")
+            for heading in ("Problem type", "Recommended starting points", "Selection constraints", "Common mistakes"):
+                if not re.search(rf"^## {re.escape(heading)}$", text, re.MULTILINE):
+                    errors.append(f"{path.relative_to(ROOT)}: missing guide heading {heading}")
+            if "../tools/" not in text:
+                errors.append(f"{path.relative_to(ROOT)}: no primary catalog link")
+            if not any(prefix in text for prefix in GUIDE_REQUIRED_LINK_PREFIXES):
+                errors.append(f"{path.relative_to(ROOT)}: no catalog or benchmark link")
+            if "limitations" not in text.lower() and "non-official" not in text.lower():
+                errors.append(f"{path.relative_to(ROOT)}: missing limitations or integration caveat")
+
+    benchmarks_root = ROOT / "benchmarks"
+    benchmark_files = sorted(path for path in benchmarks_root.rglob("*.md") if path.name != "README.md")
+    for path in benchmark_files:
+        text = path.read_text(encoding="utf-8")
+        headings = set(re.findall(r"^## (.+)$", text, re.MULTILINE))
+        missing = [heading for heading in BENCHMARK_REQUIRED_HEADINGS if heading not in headings]
+        if missing:
+            errors.append(f"{path.relative_to(ROOT)}: missing benchmark headings: {', '.join(missing)}")
+
+
 def main() -> int:
     errors = []
     names = {}
@@ -64,6 +108,8 @@ def main() -> int:
     category_counts = {}
     category_reviewed = {}
     maintenance_counts = {}
+
+    check_guides_and_benchmarks(errors)
 
     catalog_roots = (ROOT / "tools", ROOT / "examples")
     markdown_files = sorted(path for root in catalog_roots for path in root.rglob("*.md"))
@@ -121,20 +167,30 @@ def main() -> int:
     if missing_categories:
         errors.append(f"no reviewed entry for categories: {', '.join(missing_categories)}")
 
+    markdown_files = sorted(path for path in ROOT.rglob("*.md") if ".git" not in path.parts)
+    for source in markdown_files:
+        text = source.read_text(encoding="utf-8")
+        for link in re.findall(r"(?<!!)\[[^\]]+\]\(([^)]+)\)", text):
+            if link.startswith(("http://", "https://", "mailto:", "#")):
+                continue
+            target_path, _, fragment = link.partition("#")
+            target = (source.parent / target_path).resolve()
+            try:
+                target.relative_to(ROOT)
+            except ValueError:
+                errors.append(f"{source.relative_to(ROOT)}: link escapes repository {link}")
+                continue
+            if not target.is_file():
+                errors.append(f"{source.relative_to(ROOT)}: broken internal link {link}")
+            elif fragment:
+                target_text = target.read_text(encoding="utf-8")
+                headings = re.findall(r"^#{1,6} (.+)$", target_text, re.MULTILINE)
+                anchors = {heading_anchor(name) for name in headings}
+                if fragment not in anchors:
+                    errors.append(f"{source.relative_to(ROOT)}: missing internal anchor {link}")
+
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     overview_links = re.findall(r"\[Open\]\(([^)]+)\)", readme)
-    for link in overview_links:
-        target_path, _, fragment = link.partition("#")
-        target = ROOT / target_path
-        if not target.is_file():
-            errors.append(f"README.md: broken overview target {link}")
-        elif fragment:
-            anchors = {
-                heading_anchor(name)
-                for _, name, _ in entry_blocks(target)
-            }
-            if fragment not in anchors:
-                errors.append(f"README.md: missing overview anchor {link}")
 
     if errors:
         print("Catalog check failed:")

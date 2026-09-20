@@ -1,10 +1,81 @@
 # Awesome Space Systems Simulation
 
+[中文说明](README.zh-CN.md)
+
+[![Catalog checks](https://github.com/aoezhb/awesome-space-systems-simulation/actions/workflows/catalog-check.yml/badge.svg)](https://github.com/aoezhb/awesome-space-systems-simulation/actions/workflows/catalog-check.yml)
+[![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
+[![CC0](https://img.shields.io/badge/license-CC0%201.0-lightgrey.svg)](LICENSE)
+
 A curated, simulation-first map of open-source space systems tools, models, benchmarks, and validation resources.
 
 This project is for aerospace engineers, researchers, students, and open-source developers. It does not aim to compete with broad space-software lists on item count. Instead, it focuses on simulation depth, model composition, interoperability, and reproducibility.
 
 > For a given space systems simulation problem, which tool, model, or dataset should I choose?
+
+This is an awesome-style curated catalog, not a universal ranking or an
+automated recommendation service. Use the task guides to narrow the search,
+then inspect the full catalog entry and its evidence.
+
+## Catalog use
+
+Project names alone do not always identify simulation scope, time advancement,
+license boundaries, validation evidence, or integration requirements. The
+catalog records these fields in a common format and separates runnable
+simulation platforms from libraries, middleware, datasets, and reference
+integrations.
+
+Use the task guides and catalog pages to compare candidate resources, then
+follow the official source and evidence links. The benchmarks provide fixed
+inputs and reference procedures for cases that require numerical comparison.
+
+## Start here
+
+1. Choose a task or constraint below.
+2. Open the linked catalog page and compare the compact metadata.
+3. Follow the official source and evidence links before adopting a tool.
+
+For task-oriented searches, begin with [Choose by Task](#choose-by-task). For
+constraint-oriented searches, begin with [Choose by Constraint](#choose-by-constraint).
+For a fixed numerical case, see the [two-body orbit propagation benchmark](benchmarks/two-body-orbit-propagation/README.md).
+
+Pending candidates are not recommendations and have not passed catalog review.
+
+## Contents
+
+- [Catalog overview](#catalog-overview)
+- [Task guides](guides/README.md)
+- [Benchmarks](benchmarks/README.md)
+- [Taxonomy](taxonomy/README.md)
+- [Contributing](CONTRIBUTING.md)
+
+## Choose by Task
+
+| Task | Starting point | Representative tools |
+| --- | --- | --- |
+| Orbit propagation | [Open-source orbit simulators](guides/open-source-orbit-simulators.md) | GMAT, Orekit, Tudat |
+| Attitude dynamics and control | [Spacecraft attitude simulation](guides/spacecraft-attitude-simulation.md) | Basilisk, 42, MuSCAT |
+| Spacecraft GNC | [GNC catalog](tools/gnc.md) | Basilisk, MuSCAT, 42, AcubeSAT ADCS Simulation |
+| CubeSat flight software | [Flight software catalog](tools/flight-software-and-ground.md) | NASA cFS, F Prime |
+| SIL/HIL testing | [Simulation platforms](tools/simulation-platforms.md) | Trick, NOS3 |
+| Space robotics | [Robotics and multiphysics](tools/robotics-and-multiphysics.md) | Gazebo, Space ROS, Project Chrono |
+| Co-simulation | [System and co-simulation](tools/system-and-co-simulation.md) | FMI Library, PyFMI, OpenModelica |
+
+## Choose by Constraint
+
+| Constraint | Useful starting points |
+| --- | --- |
+| Python-first workflow | Tudat/tudatpy, poliastro, PASEOS, Basilisk interfaces |
+| Java-based flight dynamics | Orekit |
+| Mission-design GUI | GMAT |
+| Real-time or HIL execution | Trick, NOS3, selected flight-software platforms |
+| Flight-software integration | NASA cFS, F Prime, TrickCFS |
+| HLA/DDS distributed simulation | TrickHLA, Portico, Fast DDS |
+| Robotics and terrain interaction | Gazebo, Project Chrono, Space ROS |
+| Evidence and validation inputs | SPICE Toolkit, JPL HORIZONS, CelesTrak, SPEED+ |
+
+These are curated starting points, not universal rankings. Compare license,
+simulation scope, evidence level, interfaces, and maintenance status before
+selecting a tool for a project.
 
 ## Scope
 
@@ -45,10 +116,11 @@ The table below is the fast path into the catalog. Use it to identify the releva
 ## Quick Links
 
 - [Taxonomy](taxonomy/README.md)
+- [Task guides](guides/README.md)
 - [Benchmarks](benchmarks/README.md)
 - [Contributing guide](CONTRIBUTING.md)
 
-## Validated and Flight-Proven Highlights
+## Selected Evidence Examples
 
 | Project | Status | Evidence summary | Details |
 | --- | --- | --- | --- |
@@ -68,7 +140,7 @@ Simulation scope and validation evidence are recorded independently.
 | `S1` | Algorithm or component model |
 | `S2` | Subsystem simulation or integration |
 | `S3` | Spacecraft-, vehicle-, or mission-level simulation |
-| `S4` | Real-time, software-in-the-loop, or hardware-in-the-loop execution |
+| `S4` | Documented real-time, SIL, or HIL execution. The specific execution mode must be stated in the entry. |
 
 | Evidence | Meaning |
 | --- | --- |
@@ -76,7 +148,7 @@ Simulation scope and validation evidence are recorded independently.
 | `V1` | Repository tests, examples, or regression checks |
 | `V2` | Compared with published reference benchmarks |
 | `V3` | Validated against experimental or flight data |
-| `V4` | Operational flight or mission heritage |
+| `V4` | Documented operational or flight heritage for at least part of the project; this does not imply that every module or configuration is flight-validated. |
 
 ## Curation Principles
 
@@ -111,14 +183,14 @@ Each reviewed entry should use this compact metadata block:
 
 A `reviewed` entry must have complete metadata and no `pending review` fields. Incomplete items remain visible as `pending review` and are excluded from the reviewed-project count.
 
-## What Makes This List Different
+## Catalog Design
 
-- Independent classification of simulation scope and validation evidence
-- Consistent metadata for language, license, platform, time advancement, and validation status
-- Capability comparison tables for practical tool selection
-- Reproducible benchmarks instead of links alone
-- A clear distinction between runnable simulation platforms and supporting tools
-- Coverage of model composition, distributed simulation, and co-simulation workflows
+- Simulation scope and validation evidence are recorded as separate fields
+- Metadata covers language, license, platform, time advancement, and validation status
+- Capability tables provide a cross-category comparison view
+- Benchmark pages define reproducible inputs and reference procedures
+- Runnable simulation platforms are separated from supporting resources
+- Model composition, distributed simulation, and co-simulation are represented through categories and cross-references
 
 ## Contributing
 
@@ -129,9 +201,11 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Co
 - [x] Add the first runnable space systems simulation platforms
 - [ ] Review and complete metadata for the initial platform entries
 - [x] Add the first orbit, attitude, and GNC tool entries
-- [ ] Add a minimal runnable benchmark for each major area
+- [x] Add the first reproducible orbit benchmark definition
 - [x] Build a capability comparison matrix
 - [x] Track license, maintenance, and validation status
+- [x] Add task guides and curated stack guides
+- [x] Add issue forms for metadata, evidence, benchmarks, links, and proposals
 
 ## License
 

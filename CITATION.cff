@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: "Awesome Space Systems Simulation"
+message: "If this catalog helps your work, please cite the repository and the individual projects you use."
+type: dataset
+authors:
+  - name: "Awesome Space Systems Simulation contributors"
+repository-code: "https://github.com/aoezhb/awesome-space-systems-simulation"
+license: CC0-1.0
+version: 0.1.0
+date-released: 2026-09-20

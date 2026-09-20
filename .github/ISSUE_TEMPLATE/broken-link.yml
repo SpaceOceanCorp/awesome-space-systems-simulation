@@ -1,0 +1,29 @@
+name: Broken official link
+description: Report a broken, redirected, or non-canonical project link
+title: "Broken link: "
+labels:
+  - links
+body:
+  - type: input
+    id: project
+    attributes:
+      label: Project name
+    validations:
+      required: true
+  - type: input
+    id: current_url
+    attributes:
+      label: Current URL
+    validations:
+      required: true
+  - type: input
+    id: replacement_url
+    attributes:
+      label: Replacement URL
+      description: Leave empty if no replacement is known.
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+    validations:
+      required: true

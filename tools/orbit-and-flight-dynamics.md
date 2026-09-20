@@ -192,6 +192,7 @@ Libraries and engines in this section provide dynamics, orbit propagation, missi
 - **Time advancement:** fixed-step and adaptive numerical integration
 - **SIL/HIL:** not documented
 - **Validation status:** documented verification and validation against analytical, benchmark, and external-tool reference cases
+- **Evidence:** [Tudat documentation](https://docs.tudat.space/) and the [official Tudat repository](https://github.com/tudat-team/tudat)
 - **Maintenance status:** active
 - **Review status:** reviewed
 
@@ -228,5 +229,6 @@ Libraries and engines in this section provide dynamics, orbit propagation, missi
 - **Time advancement:** scenario-driven numerical simulation
 - **SIL/HIL:** software-in-the-loop integration
 - **Validation status:** repository tests and documented examples
+- **Evidence:** [PASEOS official repository](https://github.com/aidotse/PASEOS) and its documented examples
 - **Maintenance status:** active
 - **Review status:** reviewed

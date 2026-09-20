@@ -30,7 +30,7 @@ jobs:
           if grep -RInP '[^\x00-\x7F]' \
             --include='*.md' \
             README.md CONTRIBUTING.md LICENSE .gitignore \
-            tools examples taxonomy benchmarks; then
+            tools examples taxonomy benchmarks guides .github; then
             echo 'Unexpected non-ASCII text found.'
             exit 1
           fi

@@ -1,0 +1,51 @@
+name: New project proposal
+description: Propose a new project for the curated catalog
+title: "New project: "
+labels:
+  - proposal
+body:
+  - type: input
+    id: project
+    attributes:
+      label: Project name
+    validations:
+      required: true
+  - type: input
+    id: official_url
+    attributes:
+      label: Official URL
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Proposed primary category
+      options:
+        - platform
+        - dynamics
+        - GNC
+        - subsystems
+        - propulsion
+        - environment
+        - robotics
+        - middleware
+        - co-simulation
+        - flight-software-and-ground
+        - verification
+        - data
+        - restricted-reference
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why it belongs in this catalog
+      description: Explain the simulation use case, not only the project popularity.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Scope, license, and evidence links
+    validations:
+      required: true
