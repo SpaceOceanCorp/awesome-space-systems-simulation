@@ -102,7 +102,7 @@ The table below is the fast path into the catalog. Use it to identify the releva
 | Robotics and multiphysics | Gazebo, Project Chrono, Space Robotics Bench, Int-Ball2 Simulator | Rovers, manipulators, terrain, contact, perception, and multiphysics | [Open](tools/robotics-and-multiphysics.md) |
 | Middleware and network emulation | Portico, Fast DDS, TrickHLA, OpenSAND, gr-leo, NodalArc, GNU Radio | HLA/RTI, DDS, communications links, and distributed simulation connectivity | [Open](tools/middleware.md) |
 | System and co-simulation | FMI Library, PyFMI, OpenModelica, TrickCFS | FMI/FMU integration, equation-based modeling, flight-software integration, and cross-tool execution | [Open](tools/system-and-co-simulation.md) |
-| Spacecraft subsystems | NASA Common Model Library | Power, thermal, communications, data handling, and reusable subsystem models | [Open](tools/spacecraft-subsystems.md) |
+| Spacecraft subsystems | NASA Common Model Library, Space Water Logistics | Power, thermal, communications, data handling, life support water, and reusable subsystem models | [Open](tools/spacecraft-subsystems.md) |
 | Propulsion and launch | OpenRocket, openMotor | Launch vehicle flight dynamics and solid-motor internal ballistics | [Open](tools/propulsion-and-launch.md) |
 | Space environment | Kamodo | Atmosphere, space weather, magnetic-field, and environmental model access | [Open](tools/space-environment.md) |
 | Flight software and ground systems | CubeSatSim, NASA cFS, F Prime, Open MCT, Yamcs | Flight software, telemetry, commanding, mission operations, and HIL integration | [Open](tools/flight-software-and-ground.md) |
